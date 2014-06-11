@@ -1,0 +1,86 @@
+{# This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/. -#}
+
+{% extends "base-resp.html" %}
+
+{% block body_id %}{% endblock %}
+
+{% block page_title %}{% endblock %}
+
+{% block extrahead %}
+  {{ css('privacy-test') }}
+{% endblock %}
+
+{% block body_class %}{% endblock %}
+
+{% block site_header %}{% endblock %}
+
+{% block content %}
+
+<main role="main">
+  <div id="background-outer">
+    <div id="background-inner"></div>
+  </div>
+  <div class="scatterplot">
+    <div class="plot-inner">
+      <div class="copy-container">
+        <div class="copy-top-container">
+          <ul class="copy-top day-in-life">
+            <li class="step0 step1">Let’s take a look <br>at a day in your <br>life online</li>
+            <li class="step2 step3 step4">When you visit any <br>site on the Web</li>
+            <li class="step5 step6 step7 step8 step9">Maybe all you did <br>was check your <br>friend’s status</li>
+            <li class="step10 step11">By the time lunch <br>rolls around</li>
+            <li class="step12 step13 step14">You enter your name and email address</li>
+            <li class="step15 step16">The sites you visit <br>use the info <br>to personalize <br>your experience</li>
+            <li class="step17 step18 step19 step20">Time for a <br>coffee break?</li>
+            <li class="step21 step22 step23 step24 step25">And by the end <br>of the day</li>
+            <li class="step26">So before you <br>call it a night</li>
+          </ul>
+        </div>
+        <div class="copy-bottom-container">
+          <ul class="copy-bottom day-in-life">
+            <li class="step0 step1">And the info <br>being shared <br>without your <br>knowledge</li>
+            <li class="step2 step3 step4">You’re also connecting to other, third-party sites</li>
+            <li class="step5 step6 step7 step8 step9">And now sites <br>you’ve never <br>heard of know <br>a lot about you</li>
+            <li class="step10 step11">Your info could have been shared with as many <br>as X sites</li>
+            <li class="step12 step13 step14">And those other sites see other personal info, like your location</li>
+            <li class="step15 step16">While the third-party sites collect and even sell your info</li>
+            <li class="step17 step18 step19 step20">X more sites <br>have seen <br>your info</li>
+            <li class="step21 step22 step23 step24 step25">This is what <br>your Web <br>looks like</li>
+            <li class="step26">Take a moment to learn about the hidden parts of <br>the Web</li>
+          </ul>
+        </div>
+      </div>
+      <div class='graph-container'>
+        <svg id="graph" class="svg" viewBox="0 0 600 700" preserveAspectRatio="xMinYMin meet"></svg>
+        <input id="slider" type="range" min="0" max="26" step="1" value="0">
+      </div>
+      <div class="visited">
+        <span>00</span><br>
+        Known sites<br>
+        you’ve visited
+      </div>
+      <div class="tracking">
+        <span>00</span><br>
+        Unknown sites<br>
+        you’ve visited
+      </div>
+    </div>
+  </div>
+  <div class="next">
+    <div class="inner">
+    </div>
+  </div>
+</main>
+
+{% endblock %}
+
+{% block email_form %}{% endblock %}
+
+{% block site_footer %}{% endblock %}
+
+{% block js %}
+  {{ js('privacy-test') }}
+{% endblock  %}
+

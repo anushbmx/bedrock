@@ -1,0 +1,250 @@
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+@import "../sandstone/lib.less";
+
+html,
+body {
+    height: 100%;
+}
+
+#outer-wrapper {
+    border-top: 0;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+}
+
+#background-outer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+#background-inner {
+    position: relative;
+    background: #08A5E0;
+    background: -webkit-linear-gradient(left, #08A5E0 0%, #08A5E0 10%, #61B0DC 20%, #86BFE4 30%, #93C4E6 40%, #9AC0DE 50%, #A2B8D3 60%, #ABAFCA 70%, #B38E8F 80%, #975645 90%, #473E62 100%);
+    background: linear-gradient(to right, #08A5E0 0%, #08A5E0 10%, #61B0DC 20%, #86BFE4 30%, #93C4E6 40%, #9AC0DE 50%, #A2B8D3 60%, #ABAFCA 70%, #B38E8F 80%, #975645 90%, #473E62 100%);
+    width: 1000%;
+    height: 100%;
+}
+
+#wrapper {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+#masthead {
+    width: @widthDesktop;
+    margin: 0 auto;
+}
+
+.scatterplot {
+    position: relative;
+    width: 100%;
+    height: 800px;
+    background: -webkit-linear-gradient(top, transparent 0%, transparent 350px, rgba(0, 0, 0, 0.3) 350px, rgba(0, 0, 0, 0.3) 100%);
+    background: linear-gradient(to bottom, transparent 0%, transparent 350px, rgba(0, 0, 0, 0.3) 350px, rgba(0, 0, 0, 0.3) 100%);
+
+    .plot-inner {
+        position: relative;
+        width: @widthDesktop;
+        height: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .copy-container {
+        position: relative;
+        float: left;
+        width: 300px;
+        height: 700px;
+        margin: 0;
+    }
+
+    .copy-top-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 350px;
+        margin: 0;
+    }
+
+    .copy-bottom-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 350px;
+        margin: 0;
+    }
+
+    .copy-top {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        .open-sans;
+        li {
+            position: absolute;
+            bottom: @baseLine;
+            left: 0;
+            width: 100%;
+            color: #fff;
+            font-style: italic;
+            font-size: 32px;
+            line-height: 1.5;
+            text-shadow: none;
+            text-align: left;
+            display: none;
+
+            &.current {
+                display: block;
+            }
+        }
+    }
+
+    .copy-bottom {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        .open-sans;
+        li {
+            position: absolute;
+            top: @baseLine;
+            left: 0;
+            width: 100%;
+            color: rgba(0, 0, 0, 0.5);
+            font-weight: bold;
+            font-size: 32px;
+            line-height: 1.5;
+            text-transform: uppercase;
+            text-align: left;
+            display: none;
+
+            &.current {
+                display: block;
+            }
+        }
+    }
+
+    .graph-container {
+        position: relative;
+        float: left;
+        width: 600px;
+        margin: 0;
+    }
+
+    .visited {
+        position: absolute;
+        top: @baseLine;
+        right: @baseLine;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 20px;
+        text-align: right;
+        font-style: italic;
+        span {
+            font-weight: bold;
+            font-size: 80px;
+            font-style: normal;
+            line-height: 1;
+        }
+    }
+
+    .tracking {
+        position: absolute;
+        bottom: @baseLine;
+        right: @baseLine;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 20px;
+        text-align: right;
+        font-style: italic;
+        span {
+            font-weight: bold;
+            font-size: 80px;
+            font-style: normal;
+            line-height: 1;
+        }
+    }
+}
+
+.main text {
+    font: 16px sans-serif;
+    fill: #fff;
+}
+
+#graph {
+    width: 600px;
+    height: 700px;
+}
+
+.axis line, .axis path {
+    shape-rendering: crispEdges;
+    stroke: #fff;
+    stroke-width: 2px;
+    fill: none;
+}
+
+input[type="range"] {
+    display: none;
+}
+
+.rangeslider {
+    position: absolute;
+    top: 354px;
+    left: 48px;
+    height: 0;
+    width: 600 - 96px;
+
+    .rangeslider__handle {
+        width: 20px;
+        height: 20px;
+    }
+
+    .rangeslider__fill {
+        height: 0;
+    }
+}
+
+.next {
+    position: relative;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.3);
+    padding: @baseLine 0;
+
+    .inner {
+        width: @widthDesktop - (@baseLine * 2);
+        margin: 0 auto;
+    }
+}
+
+/* Tablet Layout: 760px */
+@media only screen and (min-width: @breakTablet) and (max-width: @breakDesktop) {
+
+}
+
+@media only screen and (min-width: @breakMobileLandscape) and (max-width: @breakTablet) {
+
+}
+
+/* Mobile layout: 320px */
+@media only screen and (max-width: @breakMobileLandscape) {
+
+}
+
