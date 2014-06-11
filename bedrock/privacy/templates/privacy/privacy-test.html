@@ -1,0 +1,79 @@
+{# This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/. -#}
+
+{% extends "base-resp.html" %}
+
+{% block body_id %}{% endblock %}
+
+{% block page_title %}{% endblock %}
+
+{% block extrahead %}
+  {{ css('privacy-test') }}
+{% endblock %}
+
+{% block body_class %}{% endblock %}
+
+{% block site_header %}
+  <header id="masthead">
+    <div class="container">
+      <a href="{{ url('mozorg.home') }}" id="tabzilla" data-infobar="{{ settings.TABZILLA_INFOBAR_OPTIONS }}">Mozilla</a>
+    {% block site_header_logo %}
+      <h2><a href="{{ url('mozorg.home') }}">{{ high_res_img('img/sandstone/mozilla-wordmark-white.png', {'alt': 'Mozilla', 'width': '170', 'height': '46'}) }}</a></h2>
+    {% endblock %}
+    </div>
+  </header>
+{% endblock %}
+
+{% block content %}
+
+<main role="main">
+  <header id="intro">
+    <h1 class="large">The internet is not free</h1>
+  </header>
+  <div class="identity-container">
+    <div class="copy-container">
+      <section class="you">
+        <div class="copy-inner">
+          <h2>This is you.</h2>
+          <p>Your identity is made up of lots of pieces of information, things like your name, email address, even your location.</p>
+        </div>
+      </section>
+      <section class="with-you">
+        <div class="copy-inner">
+          <h2>When you browse, your info goes with you</h2>
+          <p>Your identity is made up of lots of pieces of information, things like your name, email address, even your location.</p>
+        </div>
+      </section>
+      <section class="other-people">
+        <div class="copy-inner">
+          <h2>But other people see your info, too</h2>
+          <p>There are sites you’ve never visited, never seen, never even heard of that watch, collect and share your data without your knowledge or permission. This is called third-party tracking and it’s why the Web ends up looking like this.</p>
+        </div>
+      </section>
+    </div>
+    <div class="svg-container">
+      <div class="svg-inner">
+        <svg id="lightbeam" viewBox="0 0 1000 500" preserveAspectRatio="xMinYMin meet"></svg>
+      </div>
+    </div>
+
+    <div class="inner">
+      <div class="hook you-hook"></div>
+      <div class="hook with-you-hook"></div>
+      <div class="hook other-people-hook"></div>
+    </div>
+  </div>
+  <section id="average">
+
+  </section>
+</main>
+
+{% endblock %}
+
+{% block email_form %}{% endblock %}
+
+{% block js %}
+  {{ js('privacy-test') }}
+{% endblock  %}
+

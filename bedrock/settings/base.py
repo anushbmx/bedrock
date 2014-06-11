@@ -340,6 +340,9 @@ MINIFY_BUNDLES = {
         'privacy-day': (
             'css/privacy/privacy-day.less',
         ),
+        'privacy-test': (
+            'css/privacy/privacy-test.less',
+        ),
         'fb_privacy': (
             'css/privacy/fb-privacy.less',
         ),
@@ -650,6 +653,12 @@ MINIFY_BUNDLES = {
         ),
         'privacy-day': (
             'js/privacy/privacy-day.js',
+        ),
+        'privacy-test': (
+            'js/libs/d3.js',
+            'js/libs/jquery.waypoints.min.js',
+            'js/libs/jquery.waypoints-sticky.min.js',
+            'js/privacy/privacy-test.js',
         ),
         'products': (
             'js/libs/jquery.waypoints.min.js',
