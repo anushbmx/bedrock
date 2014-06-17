@@ -311,6 +311,11 @@ MINIFY_BUNDLES = {
         'legal_fraud_report': (
             'css/legal/fraud-report.less',
         ),
+        'manifesto': (
+            'css/base/mozilla-modal.less',
+            'css/libs/socialshare/socialshare.less',
+            'css/mozorg/manifesto.less',
+        ),
         'mission': (
             'css/sandstone/video-resp.less',
             'css/mozorg/mission.less',
@@ -623,6 +628,11 @@ MINIFY_BUNDLES = {
             'js/base/nav-main-resp.js',
             'js/base/footer-email-form.js',
             'js/base/mozilla-image-helper.js',
+        ),
+        'manifesto': (
+            'js/base/mozilla-modal.js',
+            'js/libs/socialshare.min.js',
+            'js/mozorg/manifesto.js',
         ),
         'pager': (
             'js/base/mozilla-pager.js',
