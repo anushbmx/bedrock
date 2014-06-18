@@ -9,6 +9,8 @@ $(function() {
     var currentIndex = 0;
     var $slideContent = $('.day-in-life');
     var $background = $('#background-outer');
+    var $visited = $('.visited span');
+    var $unknown = $('.unknown span');
 
     var data = [
         [2, 1], [2, 2], [2, -1], [2, -2], [2, -3], [2, -4],
@@ -31,7 +33,7 @@ $(function() {
 
         [20, 1], [20, -1], [20, -2], [20, -3], [20, -4], [20, -5], [20, -6], [20, -7], [20, -8], [20, -9], [20, -10],
         [21, 1], [21, 2], [21, -1], [21, -2], [21, -3], [21, -4], [21, -5], [21, -6], [21, -7], [21, -8], [21, -9], [21, -10], [21, -11], [21, -12], [21, -13], [21, -14], [21, -15],
-        [22, 1], [22, 2], [22, 3], [22, -1], [22, -2], [22, -3], [22, -4], [22, -5], [22, -6], [22, -7], [22, -8], [22, -9], [22, -10], [22, -11], [22, -12], [22 -13], [22, -14], [22, -15],
+        [22, 1], [22, 2], [22, 3], [22, -1], [22, -2], [22, -3], [22, -4], [22, -5], [22, -6], [22, -7], [22, -8], [22, -9], [22, -10], [22, -11], [22, -12], [22, -13], [22, -14], [22, -15],
 
         [24, 1], [24, 2], [24, -1], [24, -2], [24, -3], [24, -4], [24, -5], [24, -6], [24, -7], [24, -8], [24, -9], [24, -10], [24, -11], [24, -12], [24, -13], [24, -14], [24, -15],
         [25, 1], [25, 2], [25, -1], [25, -2], [25, -3], [25, -4], [25, -5], [25, -6], [25, -7], [25, -8], [25, -9], [25, -10], [25, -11], [25, -12], [25, -13], [25, -14], [25, -15],
@@ -108,8 +110,12 @@ $(function() {
         }).enter();
 
         circles.append('circle')
-            .attr('cx', function (d) { return x(d[0]); } )
-            .attr('cy', function (d) { return y(d[1]); } )
+            .attr('cx', function (d) {
+                return x(d[0]);
+            })
+            .attr('cy', function (d) {
+                return y(d[1]);
+            })
             .attr('r', 0)
             .attr('fill', function (d) {
                 return d[1] > 0 ? '#BAD4EC' : '#000';
@@ -160,6 +166,22 @@ $(function() {
         ticks.moveToFront();
     }
 
+    function updateStats() {
+        var visited = 0;
+        var unknown = 0;
+
+        cache.forEach(function (d) {
+            if (d[1] > 0) {
+                visited += 1;
+            } else {
+                unknown += 1;
+            }
+        });
+
+        $visited.html(visited);
+        $unknown.html(unknown);
+    }
+
     var timer;
 
     var $slider = $('#slider').rangeslider({
@@ -191,6 +213,7 @@ $(function() {
             timer = setTimeout(function () {
                 scrollToGradient(percent);
                 showSlideContent(val);
+                updateStats();
             }, 200);
         }
     });
