@@ -38,6 +38,8 @@ $(function() {
     var cache = [];
     cache = data;
 
+    var circles;
+
     var margin = {top: 0, right: 60, bottom: 0, left: 60};
     var width = 600 - margin.left - margin.right;
     var height = 700 - margin.top - margin.bottom;
@@ -89,9 +91,13 @@ $(function() {
       });
     };
 
-    function addDots (data) {
+    function addDots (data, val) {
 
-        data.append('circle')
+        circles = main.selectAll('circle').data(data, function (d) {
+            return d;
+        }).enter();
+
+        circles.append('circle')
             .attr('cx', function (d) { return x(d[0]); } )
             .attr('cy', function (d) { return y(d[1]); } )
             .attr('r', 0)
@@ -101,7 +107,18 @@ $(function() {
             .attr('fill-opacity', function (d) {
                 return d[1] > 0 ? 1 : 0.5;
             })
-            .transition().attr('r', 6);
+            .transition()
+            .delay(function (d, i) {
+                return Math.abs(d[1]) * 30;
+            })
+            .attr('r', 6);
+    }
+
+    function removeDots (data) {
+        circles = main.selectAll('circle').data(data, function (d) {
+            return d;
+        });
+        circles.exit().transition().style('opacity', 0).attr('r', 0).remove();
     }
 
     var currentIndex = 0;
@@ -138,7 +155,6 @@ $(function() {
             var val = parseInt(value, 10);
             var percent = (val / 26) * 100;
             var floor = Math.floor((percent + 1) / 10) * 10;
-            var circles;
             cache = [];
 
             data.forEach(function (d) {
@@ -150,16 +166,11 @@ $(function() {
             });
 
             if (val < currentIndex) {
-                circles = main.selectAll('circle').data(cache, function (d) {
-                    return d;
-                });
-                circles.exit().transition().style('opacity', 0).attr('r', 0).remove();
+                removeDots(cache);
             } else if (cache.length > 0) {
-                circles = main.selectAll('circle').data(cache, function (d) {
-                    return d;
-                }).enter();
-                addDots(circles);
+                addDots(cache, val);
             }
+
             currentIndex = val;
 
             showSlideContent(val);
