@@ -23,48 +23,57 @@
     <div id="background-inner"></div>
   </div>
   <div class="scatterplot">
+    <div class="plot-background"></div>
     <div class="plot-inner">
       <div class="copy-container">
         <div class="copy-top-container">
           <ul class="copy-top day-in-life">
-            <li class="step0 step1">Let’s take a look <br>at a day in your <br>life online</li>
-            <li class="step2 step3 step4">When you visit any <br>site on the Web</li>
-            <li class="step5 step6 step7 step8 step9">Maybe all you did <br>was check your <br>friend’s status</li>
-            <li class="step10 step11">By the time lunch <br>rolls around</li>
-            <li class="step12 step13 step14">You enter your name and email address</li>
-            <li class="step15 step16">The sites you visit <br>use the info <br>to personalize <br>your experience</li>
-            <li class="step17 step18 step19 step20">Time for a <br>coffee break?</li>
-            <li class="step21 step22 step23 step24 step25">And by the end <br>of the day</li>
-            <li class="step26">So before you <br>call it a night</li>
+            <li class="step0">Welcome to the internet</li>
+            <li class="step1">Let’s take a look at a day in your life online</li>
+            <li class="step2 step3 step4">When you visit any site on the Web</li>
+            <li class="step5 step6 step7 step8 step9">Maybe all you did was check your friend’s status</li>
+            <li class="step10 step11 step12">By the time lunch rolls around</li>
+            <li class="step13">You enter your name and email address</li>
+            <li class="step14 step15 step15 step16">The sites you visit use the info to personalize your experience</li>
+            <li class="step17 step18 step19 step20">Time for a coffee break?</li>
+            <li class="step21 step22 step23 step24 step25">And by the end of the day</li>
+            <li class="step26">So before you call it a night</li>
           </ul>
         </div>
         <div class="copy-bottom-container">
           <ul class="copy-bottom day-in-life">
-            <li class="step0 step1">And the info <br>being shared <br>without your <br>knowledge</li>
+            <li class="step0">You don't know</li>
+            <li class="step1">And the info being shared without your knowledge</li>
             <li class="step2 step3 step4">You’re also connecting to other, third-party sites</li>
-            <li class="step5 step6 step7 step8 step9">And now sites <br>you’ve never <br>heard of know <br>a lot about you</li>
-            <li class="step10 step11">Your info could have been shared with as many <br>as X sites</li>
-            <li class="step12 step13 step14">And those other sites see other personal info, like your location</li>
-            <li class="step15 step16">While the third-party sites collect and even sell your info</li>
-            <li class="step17 step18 step19 step20">X more sites <br>have seen <br>your info</li>
-            <li class="step21 step22 step23 step24 step25">This is what <br>your Web <br>looks like</li>
-            <li class="step26">Take a moment to learn about the hidden parts of <br>the Web</li>
+            <li class="step5 step6 step7 step8 step9">And now sites you’ve never heard of know a lot about you</li>
+            <li class="step10 step11 step12">Your info could have been shared with as many as X sites</li>
+            <li class="step13">And those other sites see other personal info, like your location</li>
+            <li class="step14 step15 step15 step16">While the third-party sites collect and even sell your info</li>
+            <li class="step17 step18 step19 step20">X more sites have seen your info</li>
+            <li class="step21 step22 step23 step24 step25">This is what your Web looks like</li>
+            <li class="step26">Take a moment to learn about the hidden parts of the Web</li>
           </ul>
         </div>
       </div>
       <div class='graph-container'>
         <svg id="graph" class="svg" viewBox="0 0 600 700" preserveAspectRatio="xMinYMin meet"></svg>
-        <input id="slider" type="range" min="0" max="26" step="1" value="0">
+        <input id="slider" type="range" min="0" max="27" step="1" value="0">
       </div>
-      <div class="visited">
-        <span>00</span><br>
-        Known sites<br>
-        you’ve visited
-      </div>
-      <div class="tracking">
-        <span>00</span><br>
-        Unknown sites<br>
-        you’ve visited
+      <div class="stat-container">
+        <div class="stat-top-container">
+          <div class="stat visited">
+            <span>00</span><br>
+            Sites you've<br>
+            visited
+          </div>
+        </div>
+        <div class="stat-bottom-container">
+          <div class="stat unknown">
+            <span>00</span><br>
+            Unknown sites<br>
+            tracking you
+          </div>
+        </div>
       </div>
     </div>
   </div>
