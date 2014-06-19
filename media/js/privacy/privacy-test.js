@@ -143,10 +143,19 @@ $(function() {
 
         if ($step.length && !$step.hasClass('current')) {
             if ($current.length) {
+                $step.show();
+                setTimeout(function () {
+                    $step.addClass('current');
+                }, 50);
                 $current.removeClass('current');
-                $step.addClass('current');
+                setTimeout(function () {
+                    $current.hide();
+                }, 500);
             } else {
-                $step.addClass('current');
+                $step.show();
+                setTimeout(function () {
+                    $step.addClass('current');
+                }, 50);
             }
         }
     }
@@ -218,4 +227,5 @@ $(function() {
     });
 
     createCustomTicks();
+    $slider.val(0).change();
 });
