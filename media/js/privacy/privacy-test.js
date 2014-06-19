@@ -177,9 +177,16 @@ $(function() {
 
     function createCustomTicks () {
         var ticks = svg.selectAll('.tick');
-        ticks.append('circle').attr('r', 6);
+        ticks.append('circle').attr('r', 6).attr('fill', '#454545');
         ticks.selectAll('line').remove();
         ticks.moveToFront();
+    }
+
+    function updateProgressTick (val) {
+        var ticks = d3.select('.axis').selectAll('circle');
+        ticks.transition().attr('fill', function (d) {
+            return d <= val ? '#4DF32B' : '#454545';
+        });
     }
 
     function updateStats() {
@@ -223,6 +230,8 @@ $(function() {
             }
 
             currentIndex = val;
+
+            updateProgressTick(val);
 
             timer = setTimeout(function () {
                 scrollToGradient(val);
