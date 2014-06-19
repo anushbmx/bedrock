@@ -14,7 +14,13 @@
 
 {% block body_class %}{% endblock %}
 
-{% block site_header %}{% endblock %}
+{% block site_header %}
+  <header id="masthead">
+    <div class="container">
+      <a href="{{ url('mozorg.home') }}" id="tabzilla" data-infobar="{{ settings.TABZILLA_INFOBAR_OPTIONS }}">Mozilla</a>
+    </div>
+  </header>
+{% endblock %}
 
 {% block content %}
 
@@ -25,6 +31,11 @@
   <div class="scatterplot">
     <div class="plot-background"></div>
     <div class="plot-inner">
+      <div class="sun-container">
+        <div class="sun-inner">
+          <div class="sun"></div>
+        </div>
+      </div>
       <div class="copy-container">
         <div class="copy-top-container">
           <ul class="copy-top day-in-life">
@@ -53,7 +64,9 @@
       </div>
       <div class='graph-container'>
         <svg id="graph" class="svg" viewBox="0 0 600 700" preserveAspectRatio="xMinYMin meet"></svg>
-        <input id="slider" type="range" min="0" max="25" step="1" value="0">
+        <div class="slider-container">
+          <input id="slider" type="range" min="0" max="25" step="1" value="0">
+        </div>
       </div>
       <div class="stat-container">
         <div class="stat-top-container">

@@ -7,13 +7,14 @@ $(function() {
 
     var $window = $(window);
     var currentIndex = 0;
+    var $sun = $('.sun-inner');
     var $slideContent = $('.day-in-life');
     var $background = $('#background-outer');
     var $visited = $('.visited span');
     var $unknown = $('.unknown span');
 
     var data = [
-        [1, 1], [1, 2], [1, -1], [1, -2], [1, -3], [1, -4],
+        [1, 1], [1, 1], [1, 2], [1, -1], [1, -2], [1, -3], [1, -4],
         [2, 1], [2, 2], [2, 3], [2, 4], [2, 5], [2, 6], [2, 7], [2, -1], [2, -2], [2, -3], [2, -4], [2, -5], [2, -6], [2, -7], [2, -8], [2, -9], [2, -10], [2, -11], [2, -12], [2, -13],
         [3, 1], [3, 2], [3, 3], [3, 4], [3, 5], [3, -1], [3, -2], [3, -3], [3, -4], [3, -5], [3, -6], [3, -7], [3, -8], [3, -9], [3, -10], [3, -11], [3, -12], [3, -13], [3, -14], [3, -15],
         [4, 1], [4, 2], [4, -1], [4, -2], [4, -3], [4, -4], [4, -5], [4, -6], [4, -7], [4, -8], [4, -9], [4, -10], [4, -11], [4, -12], [4, -13],
@@ -162,16 +163,21 @@ $(function() {
 
     function scrollToGradient (val) {
         var width = $window.width();
-        var percent = (val / 26) * 100;
+        var percent = (val / 25) * 100;
         var pos = Math.round(width * (percent / 10)) + 'px';
+        var rotation = Math.round(percent) * 1.95;
         $background.stop().animate({
             scrollLeft: pos
         }, 1000);
+        $sun.css({
+            '-webkit-transform': 'rotate(' + rotation + 'deg)',
+            'transform': 'rotate(' + rotation + 'deg)'
+        });
     }
 
     function createCustomTicks () {
         var ticks = svg.selectAll('.tick');
-        ticks.append('circle').attr('r', 8);
+        ticks.append('circle').attr('r', 6);
         ticks.selectAll('line').remove();
         ticks.moveToFront();
     }

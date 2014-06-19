@@ -16,6 +16,7 @@ body {
 main {
     width: 100%;
     height: 100%;
+    margin-top: -50px;
 }
 
 #background-outer {
@@ -30,9 +31,10 @@ main {
 #background-inner {
     position: relative;
     background: #08A5E0;
-    background: -webkit-linear-gradient(left, #08A5E0 0%, #08A5E0 5%, #61B0DC 10%, #86BFE4 20%, #93C4E6 30%, #9AC0DE 40%, #A2B8D3 50%, #ABAFCA 60%, #B38E8F 70%, #975645 80%, #473E62 90%, #213255 100%);
-    background: linear-gradient(to right, #08A5E0 0%, #08A5E0 5%, #61B0DC 10%, #86BFE4 20%, #93C4E6 30%, #9AC0DE 40%, #A2B8D3 50%, #ABAFCA 60%, #B38E8F 70%, #975645 80%, #473E62 90%, #213255 100%);
-    width: 1210%;
+    background: -webkit-linear-gradient(left, #08A5E0 0%, #08A5E0 10%, #61B0DC 20%, #86BFE4 30%, #93C4E6 40%, #9AC0DE 50%, #A2B8D3 60%, #ABAFCA 70%, #B38E8F 80%, #975645 90%, #473E62 100%);
+    background: linear-gradient(to right, #08A5E0 0%, #08A5E0 10%, #61B0DC 20%, #86BFE4 30%, #93C4E6 40%, #9AC0DE 50%, #A2B8D3 60%, #ABAFCA 70%, #B38E8F 80%, #975645 90%, #473E62 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#08a5e0', endColorstr='#473e62',GradientType=1 );
+    width: 1000%;
     height: 100%;
 }
 
@@ -45,14 +47,14 @@ main {
 #masthead {
     width: @widthDesktop;
     margin: 0 auto;
+    z-index: 10;
 }
 
 .scatterplot {
     position: relative;
     width: 100%;
     height: 800px;
-    //background: -webkit-linear-gradient(top, transparent 0%, transparent 350px, rgba(0, 0, 0, 0.3) 350px, rgba(0, 0, 0, 0.3) 100%);
-    //background: linear-gradient(to bottom, transparent 0%, transparent 350px, rgba(0, 0, 0, 0.3) 350px, rgba(0, 0, 0, 0.3) 100%);
+
     .plot-background {
         position: absolute;
         left: 0;
@@ -70,6 +72,36 @@ main {
         margin: 0 auto;
         overflow: hidden;
         z-index: 1;
+    }
+
+    .sun-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 350px;
+        overflow: hidden;
+
+        .sun-inner {
+            position: relative;
+            width: 800px;
+            height: 700px;
+            margin: 0 auto;
+            -webkit-transform-origin: center center;
+            transform-origin: center center;
+            -webkit-transition: -webkit-transform .5s ease;
+            transition: transform .5s ease;
+
+            .sun {
+                position: absolute;
+                top: 300px;
+                left: 0;
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                background: rgba(255, 255, 0, 0.3);
+            }
+        }
     }
 
     .copy-container {
@@ -231,15 +263,15 @@ main {
 
 .axis line, .axis path {
     shape-rendering: crispEdges;
-    stroke: #fff;
-    stroke-width: 2px;
+    stroke: #454545;
+    stroke-width: 4px;
     fill: none;
 }
 
 .axis circle {
-    fill: #BAD4EC;
+    fill: #454545;
     fill-opacity: 1;
-    stroke: #fff;
+    stroke: #454545;
     stroke-width: 2px;
 }
 
@@ -247,27 +279,38 @@ input[type="range"] {
     display: none;
 }
 
-.rangeslider {
+.slider-container {
     position: absolute;
-    top: 352px;
-    left: 50px;
-    height: 0;
-    width: 500px;
+    top: 349px;
+    left: 51px;
+    width: 498px;
+}
 
+.rangeslider {
+    background: none;
+    box-shadow: none;
     .rangeslider__handle {
-        width: 15px;
-        height: 15px;
-        background: #49F22B;
-        border: 2px solid #fff;
+        width: 16px;
+        height: 16px;
+        background: transparent;
+        border: 1px solid transparent;
         box-shadow: none;
+        border-radius: 0;
 
         &:after {
-            background-image: none;
+            top: -14px;
+            left: -4px;
+            width: 24px;
+            height: 24px;
+            background: transparent url(/media/img/privacy/campaign/marker.png) top left no-repeat;
+            background-size: 24px 24px;
+            border-radius: 0;
         }
     }
 
     .rangeslider__fill {
         height: 0;
+        box-shadow: none;
     }
 }
 
