@@ -164,8 +164,8 @@ $(function() {
     function scrollToGradient (val) {
         var width = $window.width();
         var percent = (val / 25) * 100;
-        var pos = Math.round(width * (percent / 10)) + 'px';
-        var rotation = Math.round(percent) * 1.95;
+        var pos = Math.round(width * ((percent * 2) / 10)) + 'px';
+        var rotation = Math.round(percent) * 1.8;
         $background.stop().animate({
             scrollLeft: pos
         }, 1000);
@@ -178,6 +178,9 @@ $(function() {
     function createCustomTicks () {
         var ticks = svg.selectAll('.tick');
         ticks.append('circle').attr('r', 6).attr('fill', '#454545');
+        ticks.on('click', function (d) {
+            $slider.val(d).change();
+        });
         ticks.selectAll('line').remove();
         ticks.moveToFront();
     }
