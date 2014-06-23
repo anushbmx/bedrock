@@ -5,14 +5,6 @@
 $(function() {
     'use strict';
 
-    var $window = $(window);
-    var currentIndex = 0;
-    var $sun = $('.sun-inner');
-    var $slideContent = $('.day-in-life');
-    var $background = $('#background-outer');
-    var $visited = $('.visited span');
-    var $unknown = $('.unknown span');
-
     var data = [
         [1, 1], [1, 1], [1, 2], [1, -1], [1, -2], [1, -3], [1, -4],
         [2, 1], [2, 2], [2, 3], [2, 4], [2, 5], [2, 6], [2, 7], [2, -1], [2, -2], [2, -3], [2, -4], [2, -5], [2, -6], [2, -7], [2, -8], [2, -9], [2, -10], [2, -11], [2, -12], [2, -13],
@@ -41,81 +33,87 @@ $(function() {
         [25, 1], [25, -1], [25, -2], [25, -3], [25, -4], [25, -5], [25, -6], [25, -7], [25, -8], [25, -9], [25, -10], [25, -11], [25, -12], [25, -13], [25, -14], [25, -15]
     ];
 
-    var cache = data;
-
-    var circles;
-
-    var margin = {top: 0, right: 60, bottom: 0, left: 60};
-    var width = 600 - margin.left - margin.right;
-    var height = 700 - margin.top - margin.bottom;
-
-    var x = d3.scale.linear()
-              .domain([0, 25])
-              .range([ 0, width ]);
-
-    var y = d3.scale.linear()
-              .domain([-16, 16])
-              .range([ height, 0 ]);
-
-    function formatTickLabel (d) {
-        // if (d === 0) {
-        //     return '9am';
-        // } else if (d === 10) {
-        //     return 'Noon';
-        // } else if (d === 26) {
-        //     return '5pm';
-        // } else {
-        //     return null;
-        // }
-        return null;
-    }
-
-    var svg = d3.select('svg')
-    .attr('width', width + margin.right + margin.left)
-    .attr('height', height + margin.top + margin.bottom)
-    .attr('class', 'chart');
-
-    var main = svg.append('g')
-    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-    .attr('width', width)
-    .attr('height', height)
-    .attr('class', 'main');
-
-    var points = [0, 1, 4, 9, 13, 16, 20, 25];
-
-    // draw the x axis
-    var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient('bottom')
-    .ticks(25)
-    .tickValues(points)
-    .tickPadding(15)
-    .tickFormat(formatTickLabel);
-
-    main.append('g')
-    .attr('transform', 'translate(0,' + (height + 2) / 2 + ')')
-    .attr('class', 'axis')
-    .call(xAxis);
-
-    var plot = main.append('g').attr('class', 'plot');
-
+    /*
+     * d3 utility method to bring svg node to front.
+     */
     d3.selection.prototype.moveToFront = function() {
       return this.each(function(){
         this.parentNode.appendChild(this);
       });
     };
 
-    function addDots (data, val) {
-        circles = plot.selectAll('circle').data(data, function (d) {
+    function ScatterPlot (data) {
+        this.circles = null;
+        this.timer = null;
+        this.$slider = $('#slider');
+        this.$sun = $('.sun-inner');
+        this.$window = $(window);
+        this.$slideContent = $('.day-in-life');
+        this.$background = $('#background-outer');
+        this.$visited = $('.visited span');
+        this.$unknown = $('.unknown span');
+        this.currentIndex = 0;
+        this.cache = data;
+        this.svg = null;
+        this.y = null;
+        this.x = null;
+    }
+
+    /*
+     * Creates an empty scatterplot graph and appends it to the DOM
+     */
+    ScatterPlot.prototype.createGraph = function () {
+        var margin = {top: 0, right: 60, bottom: 0, left: 60};
+        var width = 600 - margin.left - margin.right;
+        var height = 700 - margin.top - margin.bottom;
+        var points = [0, 1, 4, 9, 13, 16, 20, 25];
+
+        this.x = d3.scale.linear().domain([0, 25]).range([ 0, width ]);
+        this.y = d3.scale.linear().domain([-16, 16]).range([ height, 0 ]);
+
+        this.svg = d3.select('svg')
+        .attr('width', width + margin.right + margin.left)
+        .attr('height', height + margin.top + margin.bottom)
+        .attr('class', 'chart');
+
+        this.main = this.svg.append('g')
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+        .attr('width', width)
+        .attr('height', height)
+        .attr('class', 'main');
+
+        // draw the x axis
+        var xAxis = d3.svg.axis()
+        .scale(this.x)
+        .orient('bottom')
+        .ticks(25)
+        .tickValues(points)
+        .tickPadding(15)
+        .tickFormat(this.formatTickLabel);
+
+        this.main.append('g')
+        .attr('transform', 'translate(0,' + (height + 2) / 2 + ')')
+        .attr('class', 'axis')
+        .call(xAxis);
+
+        this.plot = this.main.append('g').attr('class', 'plot');
+    };
+
+    /*
+     * Adds data to the scatterplot graph using the supplied data
+     */
+    ScatterPlot.prototype.addDots = function (data, val) {
+        var self = this;
+        var circles = this.plot.selectAll('circle').data(data, function (d) {
             return d;
         }).enter();
 
         circles.append('circle')
             .attr('cx', function (d) {
-                return x(d[0]);
+                return self.x(d[0]);
             })
             .attr('cy', function (d) {
-                return y(d[1]);
+                return self.y(d[1]);
             })
             .attr('r', 0)
             .attr('fill', function (d) {
@@ -125,22 +123,28 @@ $(function() {
                 return d[1] > 0 ? 1 : 0.5;
             })
             .transition()
-            .delay(function (d, i) {
+            .delay(function (d) {
                 return d[0] === val ? Math.abs(d[1]) * 50 : 0;
             })
             .attr('r', 6);
-    }
+    };
 
-    function removeDots (data) {
-        circles = plot.selectAll('circle').data(data, function (d) {
+    /*
+     * Removes data from the scatterplot graph using the supplied data
+     */
+    ScatterPlot.prototype.removeDots = function (data) {
+        var circles = this.plot.selectAll('circle').data(data, function (d) {
             return d;
         });
         circles.exit().transition().style('opacity', 0).attr('r', 0).remove();
-    }
+    };
 
-    function showSlideContent (step) {
-        var $step = $slideContent.find('.step' + step);
-        var $current = $slideContent.find('li.current');
+    /*
+     * Shows the apprpriate text content based on slider position
+     */
+    ScatterPlot.prototype.showSlideContent = function (step) {
+        var $step = this.$slideContent.find('.step' + step);
+        var $current = this.$slideContent.find('li.current');
 
         if ($step.length && !$step.hasClass('current')) {
             if ($current.length) {
@@ -159,44 +163,63 @@ $(function() {
                 }, 50);
             }
         }
-    }
+    };
 
-    function scrollToGradient (val) {
-        var width = $window.width();
+    /*
+     * Transitions the time of day based on slider position
+     */
+    ScatterPlot.prototype.scrollToGradient = function (val) {
+        var width = this.$window.width();
         var percent = (val / 25) * 100;
         var pos = Math.round(width * ((percent * 2) / 10)) + 'px';
         var rotation = Math.round(percent) * 1.8;
-        $background.stop().animate({
+        this.$background.stop().animate({
             scrollLeft: pos
         }, 1000);
-        $sun.css({
+        this.$sun.css({
             '-webkit-transform': 'rotate(' + rotation + 'deg)',
             'transform': 'rotate(' + rotation + 'deg)'
         });
-    }
+    };
 
-    function createCustomTicks () {
-        var ticks = svg.selectAll('.tick');
+    /*
+     * Creates custom tick axis for graph
+     */
+    ScatterPlot.prototype.createCustomTicks = function () {
+        var ticks = this.svg.selectAll('.tick');
         ticks.append('circle').attr('r', 6).attr('fill', '#454545');
-        ticks.on('click', function (d) {
-            $slider.val(d).change();
-        });
+        ticks.on('click', $.proxy(function (d) {
+            this.$slider.val(d).change();
+        }, this));
         ticks.selectAll('line').remove();
         ticks.moveToFront();
-    }
+    };
 
-    function updateProgressTick (val) {
+    /*
+     * Override default tick labels on graph axis
+     */
+    ScatterPlot.prototype.formatTickLabel = function () {
+        return null;
+    };
+
+    /*
+     * Update custom tick axis styling based on slider position
+     */
+    ScatterPlot.prototype.updateProgressTick = function (val) {
         var ticks = d3.select('.axis').selectAll('circle');
         ticks.transition().attr('fill', function (d) {
             return d <= val ? '#4DF32B' : '#454545';
         });
-    }
+    };
 
-    function updateStats() {
+    /*
+     * Update stats based on current data
+     */
+    ScatterPlot.prototype.updateStats = function () {
         var visited = 0;
         var unknown = 0;
 
-        cache.forEach(function (d) {
+        $.each(this.cache, function (i, d) {
             if (d[1] > 0) {
                 visited += 1;
             } else {
@@ -204,46 +227,66 @@ $(function() {
             }
         });
 
-        $visited.html(visited);
-        $unknown.html(unknown);
-    }
+        this.$visited.html(visited);
+        this.$unknown.html(unknown);
+    };
 
-    var timer;
+    /*
+     * Handle slider value changes and update the graph based on position
+     */
+    ScatterPlot.prototype.onSliderChange = function (pos, value) {
+        var val = parseInt(value, 10);
+        this.cache = [];
 
-    var $slider = $('#slider').rangeslider({
-        polyfill: false,
-        onSlide: function (pos, value) {
-            var val = parseInt(value, 10);
-            cache = [];
+        clearTimeout(this.timer);
 
-            clearTimeout(timer);
-
-            data.forEach(function (d) {
-                if (d[0] <= val) {
-                    cache.push(d);
-                } else if (val === 0) {
-                    cache = [];
-                }
-            });
-
-            if (val < currentIndex) {
-                removeDots(cache);
-            } else if (cache.length > 0) {
-                addDots(cache, val);
+        $.each(data, $.proxy(function (i, d) {
+            if (d[0] <= val) {
+                this.cache.push(d);
+            } else if (val === 0) {
+                this.cache = [];
             }
+        }, this));
 
-            currentIndex = val;
-
-            updateProgressTick(val);
-
-            timer = setTimeout(function () {
-                scrollToGradient(val);
-                showSlideContent(val);
-                updateStats();
-            }, 200);
+        if (val < this.currentIndex) {
+            this.removeDots(this.cache);
+        } else if (this.cache.length > 0) {
+            this.addDots(this.cache, val);
         }
-    });
 
-    createCustomTicks();
-    $slider.val(0).change();
+        this.currentIndex = val;
+
+        this.updateProgressTick(val);
+
+        this.timer = setTimeout($.proxy(function () {
+            this.scrollToGradient(val);
+            this.showSlideContent(val);
+            this.updateStats();
+        }, this), 200);
+    };
+
+    /*
+     * Destroy graph and remove from DOM
+     */
+    ScatterPlot.prototype.destroy = function () {
+        this.main.remove();
+        this.$slider.rangeslider('destroy');
+    };
+
+    /*
+     * Initialize the graph and bind slider
+     */
+    ScatterPlot.prototype.init = function () {
+        this.createGraph();
+        this.createCustomTicks();
+
+        this.$slider.rangeslider({
+            polyfill: false,
+            onSlide: $.proxy(this.onSliderChange, this)
+        });
+        this.$slider.val(0).change();
+    };
+
+    var scatter = new ScatterPlot(data);
+    scatter.init();
 });
