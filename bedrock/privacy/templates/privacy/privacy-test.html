@@ -39,26 +39,26 @@
       <div class="copy-container">
         <div class="copy-top-container">
           <ul class="copy-top day-in-life">
-            <li class="step0">Let’s a look at a day in your life online</li>
-            <li class="step1 step2 step3">You wake up and see an email about a friend’s party that night</li>
-            <li class="step4 step5 step6 step7 step8">At work, you check Google and Yelp for the location and hours</li>
-            <li class="step9 step10 step11 step12">By lunchtime, you may have only visited X sites</li>
-            <li class="step13 step14 step15">Even when you’re casually reading news sites in the afternoon</li>
-            <li class="step16 step17 step18 step19">So by the time you check Facebook at the end of the day</li>
-            <li class="step20 step21 step22 step23 step24">And when you’re away from your computer in the evening</li>
-            <li class="step25">So before you call it a night, have a look at your Web</li>
+            <li class="step0">{{ _('Let’s a look at a day in your life online') }}</li>
+            <li class="step1 step2 step3">{{ _('You wake up and see an email about a friend’s party that night') }}</li>
+            <li class="step4 step5 step6 step7 step8">{{ _('At work, you check Google and Yelp for the location and hours') }}</li>
+            <li class="step9 step10 step11 step12">{{ _('By lunchtime, you may have only visited X sites') }}</li>
+            <li class="step13 step14 step15">{{ _('Even when you’re casually reading news sites in the afternoon') }}</li>
+            <li class="step16 step17 step18 step19">{{ _('So by the time you check Facebook at the end of the day') }}</li>
+            <li class="step20 step21 step22 step23 step24">{{ _('And when you’re away from your computer in the evening') }}</li>
+            <li class="step25">{{ _('So before you call it a night, have a look at your Web') }}</li>
           </ul>
         </div>
         <div class="copy-bottom-container">
           <ul class="copy-bottom day-in-life">
-            <li class="step0">And the info shared without your knowledge</li>
-            <li class="step1 step2 step3">While other, third-party sites start to track you across the Web</li>
-            <li class="step4 step5 step6 step7 step8">Now sites you’ve never heard of know things like where you are</li>
-            <li class="step9 step10 step11 step12">But you’ve already connected to more than Y others</li>
-            <li class="step13 step14 step15">You don’t have to click or like anything for them to know you’re there</li>
-            <li class="step16 step17 step18 step19">You see ads and links for all things you looked at earlier</li>
-            <li class="step20 step21 step22 step23 step24">Your info gets processed and sold to a billion-dollar industry</li>
-            <li class="step25">To see who tracks you the most and where your info goes</li>
+            <li class="step0">{{ _('And the info shared without your knowledge') }}</li>
+            <li class="step1 step2 step3">{{ _('While other, third-party sites start to track you across the Web') }}</li>
+            <li class="step4 step5 step6 step7 step8">{{ _('Now sites you’ve never heard of know things like where you are') }}</li>
+            <li class="step9 step10 step11 step12">{{ _('But you’ve already connected to more than Y others') }}</li>
+            <li class="step13 step14 step15">{{ _('You don’t have to click or like anything for them to know you’re there') }}</li>
+            <li class="step16 step17 step18 step19">{{ _('You see ads and links for all things you looked at earlier') }}</li>
+            <li class="step20 step21 step22 step23 step24">{{ _('Your info gets processed and sold to a billion-dollar industry') }}</li>
+            <li class="step25">{{ _('To see who tracks you the most and where your info goes') }}</li>
           </ul>
         </div>
       </div>
@@ -72,23 +72,62 @@
         <div class="stat-top-container">
           <div class="stat visited">
             <span>0</span><br>
-            Sites you've<br>
-            visited
+            {{ _('Sites you’ve <br>visited') }}
           </div>
         </div>
         <div class="stat-bottom-container">
           <div class="stat unknown">
             <span>0</span><br>
-            Unknown sites<br>
-            tracking you
+            {{ _('Unknown sites <br>tracking you') }}
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="next">
-    <div class="inner">
-    </div>
+  <div class="night">
+    <section class="inner">
+      <header>
+        <h2>{{ _('So before you call it a night, have a look at your Web <br>to see who tracks you the most and where your info goes') }}</h2>
+        <p>{{ _('Then take some time to educate yourself to make smarter choices and even stop some of the tracking that happens every day') }}</p>
+      </header>
+      <ul>
+        <li>
+          <h3>{{ _('Lightbeam') }}</h3>
+          <p>{{ _('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.') }}</p>
+          <a class="more" href="#">{{ _('Resource link') }}</a>
+        </li>
+        <li>
+          <h3>{{ _('Duck Duck Go') }}</h3>
+          <p>{{ _('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.') }}</p>
+          <a class="more" href="#">{{ _('Resource link') }}</a>
+        </li>
+        <li>
+          <h3>{{ _('Do Not Track') }}</h3>
+          <p>{{ _('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.') }}</p>
+          <a class="more" href="#">{{ _('Resource link') }}</a>
+        </li>
+      </ul>
+      <section class="statistics">
+        <div class="chart-container">
+          <h3>{{ _('Which websites make the most calls to 3rd parties?') }}</h3>
+          <div class="chart"></div>
+        </div>
+        <p>{{ _('Websites make an average to 25 calls to 3rd parties. What this means is that 62% of websites that see you, actually see you due to calls made on your behalf.') }}</p>
+      </section>
+      <section class="statistics">
+        <div class="chart-container">
+          <h3>{{ _('How much of your visits are visible to trackers?') }}</h3>
+          <div class="chart"></div>
+        </div>
+        <p>{{ _('On average, 38% of third parties that a website calls are trackers. Lightbeam data shows that trackers can see up to 41% of a users’ visits.') }}</p>
+      </section>
+      <section class="statistics">
+        <div class="chart-container">
+          <h3>{{ _('Which websites expose you to the most trackers?') }}</h3>
+          <div class="chart"></div>
+        </div>
+      </section>
+    </section>
   </div>
 </main>
 

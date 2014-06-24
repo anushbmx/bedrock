@@ -25,7 +25,7 @@ main {
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
+    height: 850px;
     overflow: hidden;
 }
 
@@ -39,6 +39,10 @@ main {
     width: @widthDesktop - (@gridGutterWidth * 2);
     margin: 0 auto;
     z-index: 10;
+
+    .container {
+        padding: 0;
+    }
 }
 
 .scatterplot {
@@ -314,15 +318,98 @@ input[type="range"] {
     }
 }
 
-.next {
+.night {
     position: relative;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.3);
     padding: @baseLine 0;
+    color: #fff;
+    background: #202B50;
+    background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%)
+                -webkit-linear-gradient(left, rgba(120, 84, 114, 1) 0%, rgba(47, 63, 116, 1) 100%);
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%),
+                linear-gradient(to right, rgba(120, 84, 114, 1) 0%, rgba(47, 63, 116, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#533A4F', endColorstr='#202B50',GradientType=1 );
 
     .inner {
-        width: @widthDesktop - (@baseLine * 2);
+        width: @widthDesktop - (@baseLine * 4);
         margin: 0 auto;
+    }
+
+    header {
+        text-align: center;
+        padding: @baseLine (@baseLine * 4);
+        h2 {
+            color: #fff;
+            font-size: 24px;
+            font-style: italic;
+            text-shadow: none;
+            line-height: 1.4;
+        }
+        p {
+            color: #3F90C7;
+            font-size: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            line-height: 1.4;
+        }
+    }
+
+    ul {
+        position: relative;
+        list-style-type: none;
+        margin: @baseLine 0;
+        padding: 0;
+        overflow: hidden;
+        li {
+            float: left;
+            width: 246px;
+            margin: 0 (@baseLine / 2);
+            padding: @baseLine;
+            background: rgba(0, 0, 0, 0.4);
+
+            h3 {
+                color: #fff;
+                text-shadow: none;
+            }
+
+            p {
+                color: #3F90C7;
+            }
+
+            a:link,
+            a:visited {
+                display: block;
+                color: gray;
+            }
+        }
+    }
+
+    .statistics {
+        position: relative;
+        overflow: hidden;
+        padding: @baseLine 0;
+        h3 {
+            color: #fff;
+            font-size: 16px;
+            text-shadow: none;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        p {
+            color: #fff;
+            font-size: 18px;
+            font-style: italic;
+            .span(4);
+        }
+
+        .chart-container {
+            .span(7);
+
+            .chart {
+                width: 500px;
+                height: 300px;
+                background: rgba(0, 0, 0, 0.4);
+            }
+        }
     }
 }
 
@@ -331,6 +418,10 @@ input[type="range"] {
 
     #masthead {
         width: @widthTablet - (@gridGutterWidth * 2);
+    }
+
+    #background {
+        height: 750px;
     }
 
     .scatterplot {
@@ -422,7 +513,7 @@ input[type="range"] {
         width: 418px;
     }
 
-    .next  .inner {
+    .night .inner {
         width: @widthTablet - (@gridGutterWidth * 2);
     }
 
