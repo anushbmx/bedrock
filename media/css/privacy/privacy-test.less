@@ -25,7 +25,7 @@ main {
     top: 0;
     left: 0;
     right: 0;
-    height: 850px;
+    height: 950px;
     overflow: hidden;
 }
 
@@ -48,7 +48,7 @@ main {
 .scatterplot {
     position: relative;
     width: 100%;
-    height: 800px;
+    height: 900px;
     padding-top: -50px;
 
     .plot-background {
@@ -56,7 +56,7 @@ main {
         left: 0;
         bottom: 0;
         width: 100%;
-        height: 450px;
+        height: 550px;
         background: rgba(0, 0, 0, 0.3);
         z-index: 0;
     }
@@ -186,6 +186,32 @@ main {
                 -webkit-transition-delay: .5s;
                 transition-delay: .5s;
                 opacity: 1;
+            }
+
+            .related {
+                width: 170px;
+                margin-top: @baseLine;
+                padding: @baseLine;
+                background: rgba(0, 0, 0, 0.2);
+                text-transform: none;
+                font-weight: normal;
+
+                h3 {
+                    color: rgba(0, 0, 0, 0.5);
+                    font-size: 14px;
+                    font-weight: bold;
+                    text-shadow: none;
+                }
+
+                p {
+                    font-size: 14px;
+                }
+
+                a:link,
+                a:visited {
+                    display: block;
+                    font-size: 14px;
+                }
             }
         }
     }
@@ -421,14 +447,14 @@ input[type="range"] {
     }
 
     #background {
-        height: 750px;
+        height: 850px;
     }
 
     .scatterplot {
-        height: 700px;
+        height: 800px;
 
         .plot-background {
-            height: 408px;
+            height: 508px;
         }
 
         .plot-inner {
@@ -463,9 +489,29 @@ input[type="range"] {
         }
 
 
-        .copy-top li,
+        .copy-top li {
+            font-size: 18px;
+        }
+
         .copy-bottom li {
             font-size: 18px;
+
+            .related {
+                width: 110px;
+
+                h3 {
+                    font-size: 12px;
+                }
+
+                p {
+                    font-size: 12px;
+                }
+
+                a:link,
+                a:visited {
+                    font-size: 12px;
+                }
+            }
         }
 
         .copy-bottom-container {
