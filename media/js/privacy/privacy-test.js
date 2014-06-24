@@ -53,7 +53,6 @@ $(function() {
         this.$sun = $('.sun-inner');
         this.$window = $(window);
         this.$slideContent = $('.day-in-life');
-        this.$background = $('#background-outer');
         this.$visited = $('.visited span');
         this.$unknown = $('.unknown span');
         this.currentIndex = null;
@@ -63,6 +62,27 @@ $(function() {
         this.x = null;
         this.totalTicks = 25;
     }
+
+    /*
+     * Creates SVG linear gradient background for animation
+     */
+    ScatterPlot.prototype.createGradientBackground = function () {
+        this.gradContainer = d3.select('#gradient-container');
+        this.gradient = this.gradContainer.append('svg:linearGradient')
+            .attr('id', 'gradient1');
+        this.gradient.append('svg:stop')
+            .attr('class', 'stop1')
+            .attr('offset', '0%')
+            .attr('stop-color', '#90ADC6');
+        this.gradient.append('svg:stop')
+            .attr('class', 'stop2')
+            .attr('offset', '100%')
+            .attr('stop-color', '#92BBDB');
+        this.rect = this.gradContainer.append('svg:rect')
+            .attr('width', '100%')
+            .attr('height', '100%')
+            .style('fill', 'url(#gradient1)');
+    };
 
     /*
      * Creates an empty scatterplot graph and appends it to the DOM
@@ -76,7 +96,7 @@ $(function() {
         this.x = d3.scale.linear().domain([0, this.totalTicks]).range([ 0, width ]);
         this.y = d3.scale.linear().domain([-16, 16]).range([ height, 0 ]);
 
-        this.svg = d3.select('svg')
+        this.svg = d3.select('#graph')
         .attr('width', width + margin.right + margin.left)
         .attr('height', height + margin.top + margin.bottom)
         .attr('class', 'chart');
@@ -177,18 +197,74 @@ $(function() {
      * Update time of day based on slider step value
      * @param step (number)
      */
-    ScatterPlot.prototype.scrollToGradient = function (step) {
-        var width = this.$window.width();
+    ScatterPlot.prototype.scrollToGradient = function (step, direction) {
+        //var width = this.$window.width();
         var percent = (step / this.totalTicks) * 100;
-        var pos = Math.round(width * ((percent * 2) / 10)) + 'px';
+        //var pos = Math.round(width * ((percent * 2) / 10)) + 'px';
         var rotation = Math.round(percent) * 1.8;
-        this.$background.stop().animate({
-            scrollLeft: pos
-        }, 1000);
+        var nearest = Math.ceil(percent / 10) * 10;
+        var color1 = '#90ADC6';
+        var color2 = '#92BBDB';
+        var delay1 = direction === 'forward' ? 500 : 300;
+        var delay2 = direction === 'forward' ? 300 : 500;
+
+        switch (nearest) {
+        case 0:
+            color1 = '#90ADC6';
+            color2 = '#92BBDB';
+            break;
+        case 10:
+            color1 = '#90ADC6';
+            color2 = '#92BBDB';
+            break;
+        case 20:
+            color1 = '#92BBDB';
+            color2 = '#8AC0E5';
+            break;
+        case 30:
+            color1 = '#8AC0E5';
+            color2 = '#75B7E3';
+            break;
+        case 40:
+            color1 = '#75B7E3';
+            color2 = '#3CABE5';
+            break;
+        case 50:
+            color1 = '#3CABE5';
+            color2 = '#10A5E2';
+            break;
+        case 60:
+            color1 = '#10A5E2';
+            color2 = '#27A1D3';
+            break;
+        case 70:
+            color1 = '#27A1D3';
+            color2 = '#8894A9';
+            break;
+        case 80:
+            color1 = '#8894A9';
+            color2 = '#BA7567';
+            break;
+        case 90:
+            color1 = '#BA7567';
+            color2 = '#785472';
+            break;
+        case 100:
+            color1 = '#785472';
+            color2 = '#2F3F74';
+            break;
+        default:
+            color1 = '#90ADC6';
+            color2 = '#92BBDB';
+        }
+
         this.$sun.css({
             '-webkit-transform': 'rotate(' + rotation + 'deg)',
             'transform': 'rotate(' + rotation + 'deg)'
         });
+
+        this.gradient.select('.stop1').transition().delay(delay1).duration(500).attr('stop-color', color1);
+        this.gradient.select('.stop2').transition().delay(delay2).duration(500).attr('stop-color', color2);
     };
 
     /*
@@ -247,6 +323,7 @@ $(function() {
      */
     ScatterPlot.prototype.onSliderChange = function (position, value) {
         var val = parseInt(value, 10);
+        var direction = 'forward';
 
         if (val === this.currentIndex) {
             // if we're already at the supplied value, do nothing.
@@ -268,8 +345,10 @@ $(function() {
 
         if (val < this.currentIndex) {
             this.removeDots(this.cache);
+            direction = 'backward';
         } else if (this.cache.length > 0) {
             this.addDots(this.cache, val);
+            direction = 'forward';
         }
 
         this.currentIndex = val;
@@ -278,7 +357,7 @@ $(function() {
         // use a small timeout before doing the
         // intensive background stuff
         this.timer = setTimeout($.proxy(function () {
-            this.scrollToGradient(val);
+            this.scrollToGradient(val, direction);
             this.showSlideContent(val);
             this.updateStats();
         }, this), 200);
@@ -289,6 +368,8 @@ $(function() {
      */
     ScatterPlot.prototype.destroy = function () {
         this.main.remove();
+        this.gradient.remove();
+        this.rect.remove();
         this.$slider.rangeslider('destroy');
     };
 
@@ -332,6 +413,7 @@ $(function() {
      * Initialize the graph and bind slider
      */
     ScatterPlot.prototype.init = function () {
+        this.createGradientBackground();
         this.createGraph();
         this.createCustomTicks();
         this.createSlider();

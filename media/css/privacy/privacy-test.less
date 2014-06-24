@@ -12,6 +12,7 @@ body {
 #outer-wrapper {
     position: relative;
     border-top: 0;
+    background: #90ADC6;
 }
 
 main {
@@ -19,23 +20,13 @@ main {
     height: 100%;
 }
 
-#background-outer {
+#background {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     overflow: hidden;
-}
-
-#background-inner {
-    position: relative;
-    background: #08A5E0;
-    background: -webkit-linear-gradient(left, #08A5E0 0%, #08A5E0 10%, #61B0DC 20%, #86BFE4 30%, #93C4E6 40%, #9AC0DE 50%, #A2B8D3 60%, #ABAFCA 70%, #B38E8F 80%, #975645 90%, #473E62 100%);
-    background: linear-gradient(to right, #08A5E0 0%, #08A5E0 10%, #61B0DC 20%, #86BFE4 30%, #93C4E6 40%, #9AC0DE 50%, #A2B8D3 60%, #ABAFCA 70%, #B38E8F 80%, #975645 90%, #473E62 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#08a5e0', endColorstr='#473e62',GradientType=1 );
-    width: 2000%;
-    height: 100%;
 }
 
 #wrapper {
@@ -90,8 +81,8 @@ main {
             margin: 0 auto;
             -webkit-transform-origin: center center;
             transform-origin: center center;
-            -webkit-transition: -webkit-transform .5s ease;
-            transition: transform .5s ease;
+            -webkit-transition: -webkit-transform .3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+            transition: transform .3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
 
             .sun {
                 position: absolute;
