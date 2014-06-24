@@ -49,6 +49,7 @@ $(function() {
     function ScatterPlot (data) {
         this.circles = null;
         this.timer = null;
+        this.contentTimer = null;
         this.$slider = $('#slider');
         this.$sun = $('.sun-inner');
         this.$window = $(window);
@@ -175,18 +176,19 @@ $(function() {
         var $current = this.$slideContent.find('li.current');
 
         if ($step.length && !$step.hasClass('current')) {
+            clearTimeout(this.contentTimer);
             if ($current.length) {
                 $step.show();
-                setTimeout(function () {
+                this.contentTimer = setTimeout(function () {
                     $step.addClass('current');
                 }, 50);
                 $current.removeClass('current');
-                setTimeout(function () {
+                this.contentTimer = setTimeout(function () {
                     $current.hide();
                 }, 500);
             } else {
                 $step.show();
-                setTimeout(function () {
+                this.contentTimer = setTimeout(function () {
                     $step.addClass('current');
                 }, 50);
             }
