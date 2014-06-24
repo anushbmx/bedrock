@@ -126,16 +126,16 @@ $(function() {
     };
 
     /*
-     * Adds data to the scatterplot graph
+     * Updates scatterplot graph based on the current data
      * @param data (array), @param index (number)
      */
-    ScatterPlot.prototype.addDots = function (data, index) {
+    ScatterPlot.prototype.updateGraph = function (data, index) {
         var self = this;
         var circles = this.plot.selectAll('circle').data(data, function (d) {
             return d;
-        }).enter();
+        });
 
-        circles.append('circle')
+        circles.enter().append('circle')
             .attr('cx', function (d) {
                 return self.x(d[0]);
             })
@@ -154,17 +154,8 @@ $(function() {
                 return d[0] === index ? Math.abs(d[1]) * 50 : 0;
             })
             .attr('r', 6);
-    };
 
-    /*
-     * Removes data from the scatterplot graph
-     * @param data (array)
-     */
-    ScatterPlot.prototype.removeDots = function (data) {
-        var circles = this.plot.selectAll('circle').data(data, function (d) {
-            return d;
-        });
-        circles.exit().transition().style('opacity', 0).attr('r', 0).remove();
+        circles.exit().remove();
     };
 
     /*
@@ -346,10 +337,10 @@ $(function() {
         }, this));
 
         if (val < this.currentIndex) {
-            this.removeDots(this.cache);
+            this.updateGraph(this.cache, val);
             direction = 'backward';
         } else if (this.cache.length > 0) {
-            this.addDots(this.cache, val);
+            this.updateGraph(this.cache, val);
             direction = 'forward';
         }
 
