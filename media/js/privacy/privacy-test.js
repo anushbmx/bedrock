@@ -6,7 +6,7 @@ $(function() {
     'use strict';
 
     var data = [
-        [1, 1], [1, 1], [1, 2], [1, -1], [1, -2], [1, -3], [1, -4],
+        [1, 1], [1, 2], [1, -1], [1, -2], [1, -3], [1, -4],
         [2, 1], [2, 2], [2, 3], [2, 4], [2, 5], [2, 6], [2, 7], [2, -1], [2, -2], [2, -3], [2, -4], [2, -5], [2, -6], [2, -7], [2, -8], [2, -9], [2, -10], [2, -11], [2, -12], [2, -13],
         [3, 1], [3, 2], [3, 3], [3, 4], [3, 5], [3, -1], [3, -2], [3, -3], [3, -4], [3, -5], [3, -6], [3, -7], [3, -8], [3, -9], [3, -10], [3, -11], [3, -12], [3, -13], [3, -14], [3, -15],
         [4, 1], [4, 2], [4, -1], [4, -2], [4, -3], [4, -4], [4, -5], [4, -6], [4, -7], [4, -8], [4, -9], [4, -10], [4, -11], [4, -12], [4, -13],
@@ -62,6 +62,7 @@ $(function() {
         this.y = null;
         this.x = null;
         this.totalTicks = 25;
+        this.points = [0, 1, 4, 9, 13, 16, 20, 25];
     }
 
     /*
@@ -92,7 +93,6 @@ $(function() {
         var margin = {top: 0, right: 60, bottom: 0, left: 60};
         var width = 600 - margin.left - margin.right;
         var height = 700 - margin.top - margin.bottom;
-        var points = [0, 1, 4, 9, 13, 16, 20, 25];
 
         this.x = d3.scale.linear().domain([0, this.totalTicks]).range([ 0, width ]);
         this.y = d3.scale.linear().domain([-16, 16]).range([ height, 0 ]);
@@ -113,7 +113,7 @@ $(function() {
         .scale(this.x)
         .orient('bottom')
         .ticks(this.totalTicks)
-        .tickValues(points)
+        .tickValues(this.points)
         .tickPadding(15)
         .tickFormat(this.formatTickLabel);
 
@@ -163,8 +163,17 @@ $(function() {
      * @param step (number)
      */
     ScatterPlot.prototype.showSlideContent = function (step) {
-        var $step = this.$slideContent.find('.step' + step);
         var $current = this.$slideContent.find('li.current');
+        var $step;
+        var point;
+
+        $.each(this.points, function (i, d) {
+            if (step >= d) {
+                point = d;
+            }
+        });
+
+        $step = this.$slideContent.find('.step' + point);
 
         if ($step.length && !$step.hasClass('current')) {
             clearTimeout(this.contentTimer);
