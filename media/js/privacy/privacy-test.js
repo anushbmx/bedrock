@@ -409,9 +409,19 @@ $(function() {
         this.createGradientBackground();
         this.createGraph();
         this.createCustomTicks();
-        this.createSlider();
     };
 
     var scatter = new ScatterPlot(data);
     scatter.init();
+
+    setTimeout(function () {
+        $('.scatterplot header').addClass('on').delay(1700).fadeOut('slow', function () {
+            $('.plot-inner').fadeIn('slow', function () {
+                scatter.createSlider();
+            });
+        });
+    }, 1000);
+
+
+
 });

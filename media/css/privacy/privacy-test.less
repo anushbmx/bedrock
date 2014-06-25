@@ -25,7 +25,7 @@ main {
     top: 0;
     left: 0;
     right: 0;
-    height: 950px;
+    height: 850px;
     overflow: hidden;
 }
 
@@ -48,7 +48,7 @@ main {
 .scatterplot {
     position: relative;
     width: 100%;
-    height: 900px;
+    height: 800px;
     padding-top: -50px;
     overflow: visible;
 
@@ -57,12 +57,76 @@ main {
         left: 0;
         bottom: 0;
         width: 100%;
-        height: 550px;
+        height: 450px;
         background: rgba(0, 0, 0, 0.3);
         z-index: 0;
     }
 
+    header {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: @widthDesktop - (@gridGutterWidth * 2);
+        margin-left: -(@widthDesktop - (@gridGutterWidth * 2)) / 2;
+        height: 100%;
+        text-align: center;
+
+        h1 {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            margin: 0 0 @baseLine 0;
+            color: #fff;
+            font-style: italic;
+            font-size: 24px;
+            line-height: 100%;
+            text-shadow: none;
+            letter-spacing: 0;
+            .open-sans;
+            .transition(transform .7s ease-in-out 0s);
+            .transform(translate(0, 200%));
+
+        }
+
+        p {
+            margin: @baseLine 0 0 0;
+            color: rgba(0, 0, 0, 0.5);
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 100%;
+            text-transform: uppercase;
+            .transition(transform .7s ease-in-out .7s);
+            .transform(translate(0, -200%));
+        }
+
+        &.on {
+            h1, p {
+                .transform(translate(0, 0));
+            }
+        }
+
+        .above {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 350px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .below {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 450px;
+            width: 100%;
+            overflow: hidden;
+        }
+    }
+
     .plot-inner {
+        display: none;
         position: relative;
         width: @widthDesktop - (@gridGutterWidth * 2);
         height: 100%;
@@ -448,14 +512,27 @@ input[type="range"] {
     }
 
     #background {
-        height: 850px;
+        height: 700px;
     }
 
     .scatterplot {
-        height: 800px;
+        height: 650px;
 
         .plot-background {
-            height: 508px;
+            height: 358px;
+        }
+
+        header {
+            width: @widthTablet - (@gridGutterWidth * 2);
+            margin-left: -(@widthTablet - (@gridGutterWidth * 2)) / 2;
+
+            .above {
+                height: 291px;
+            }
+
+            .below {
+                height: 357px;
+            }
         }
 
         .plot-inner {
